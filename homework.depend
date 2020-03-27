@@ -2,27 +2,27 @@
 1585148527 source:c:\users\zhang\documents\codeblocks\homework\cnf.c
 	"head.h"
 
-1585308662 c:\users\zhang\documents\codeblocks\homework\head.h
+1585319321 c:\users\zhang\documents\codeblocks\homework\head.h
 	<stdio.h>
 	<stdlib.h>
 	<time.h>
 	<string.h>
 
-1585311529 source:c:\users\zhang\documents\codeblocks\homework\main.c
+1585319518 source:c:\users\zhang\documents\codeblocks\homework\main.c
 	"head.h"
 
-1585149519 source:c:\users\zhang\documents\codeblocks\homework\dpll.c
+1585319434 source:c:\users\zhang\documents\codeblocks\homework\dpll.c
 	"head.h"
 
 1585145763 source:c:\users\zhang\documents\codeblocks\homework\saveanswer.c
 	"head.h"
 
-1585209214 source:c:\users\zhang\documents\codeblocks\homework\verify.c
+1585319503 source:c:\users\zhang\documents\codeblocks\homework\verify.c
 	"head.h"
 
 1585149386 source:c:\users\zhang\documents\codeblocks\homework\display.c
 	"head.h"
 
-1585311580 source:c:\users\zhang\documents\codeblocks\homework\generate.c
+1585323650 source:c:\users\zhang\documents\codeblocks\homework\generate.c
 	"head.h"
 

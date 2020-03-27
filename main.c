@@ -6,29 +6,28 @@ int main()
     char filename[81];
     int a = -1;
 
-
-    while(a)
+    while (a)
     {
         system("cls");
         Mainmenu();
         a = Getchoose();
-        switch(a)
+        switch (a)
         {
         case 1:
             // Puzzle
-            while(a)
+            while (a)
             {
                 system("cls");
                 Puzzlemenu();
                 a = Getchoose();
-                if(a==1)
+                if (a == 1)
                 {
                     // Generate
                     Generatecnf();
                     getchar();
                     getchar();
                 }
-                else if (a == 2||a==0)
+                else if (a == 2 || a == 0)
                 {
                     // Return
                     break;
@@ -38,23 +37,43 @@ int main()
         case 2:
             // SAT
             // startDPLL(filename);
-            while(a)
+            while (a)
             {
                 system("cls");
                 SATmenu();
                 a = Getchoose();
-                if(a==1)
+                if (a == 1)
                 {
                     // Compute
-                    startDPLL(filename);
+                    printf("input a cnf filename: ");
+                    scanf("%s", filename);
+                    if (startDPLL(filename) == 1)
+                    {
+                        // SAT
+                        printf("SAT\n");
+                        int i = 1;
+                        for (i = 1; i <= variableNumber; i++)
+                            printf("%d   %d\n", i, valuation[i]);
+                        // write file
+                        printf("input a filename to save answer: ");
+                        scanf("%s", filename);
+                        saveanswer(filename);
+                    }
+                    else
+                    {
+                        // UNSAT
+                        printf("UNSAT\n");
+                    }
+
                     getchar();
                     getchar();
                 }
-                else if(a == 2)
+                else if (a == 2)
                 {
+                    // 验证
                     printf("input a cnf filename: ");
                     scanf("%s", filename);
-                    if(verify(readClauseSet(filename)) == 1)
+                    if (verify(readClauseSet(filename)) == 1)
                     {
                         printf("CORRECT\n");
                     }
@@ -65,7 +84,7 @@ int main()
                     getchar();
                     getchar();
                 }
-                else if(a==3||a==0)
+                else if (a == 3 || a == 0)
                 {
                     break;
                 }
@@ -81,4 +100,3 @@ int main()
     }
     return 0;
 }
-

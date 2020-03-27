@@ -45,7 +45,7 @@ void printClauseSet(Clause *root);
 int sign(int x);
 int saveanswer(char *filename);
 int verify(Clause * root);
-void startDPLL(char*);
+int startDPLL(char*);
 // 菜单
 void Mainmenu();
 void Puzzlemenu();

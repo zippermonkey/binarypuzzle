@@ -9,19 +9,18 @@ int Generatecnf(void)
 
     FILE *fp = NULL;
     fp = fopen("puzzle.cnf", "w");
-    int n = 8;
+    int n = 4;
     printf("Please enter the order n(the file will be saved in puzzle.cnf): ");
-    scanf("%d",&n);
+    scanf("%d", &n);
 
-    if(n<4||n%2==1)
+    if (n < 4 || n % 2 == 1)
     {
         printf("Please enter an even number greater than or equal to 4.\n");
         return 0;
     }
 
-
     int constraint1 = 0;
-    constraint1 = 4*n*(n-2);
+    constraint1 = 4 * n * (n - 2);
     int constraint2 = 0;
     int constraint3 = 0;
     int sum_dm = 1;
@@ -31,9 +30,9 @@ int Generatecnf(void)
         sum_dm *= i;
         sum_ne *= j;
     }
-    constraint2 = 4*n*(sum_ne)/(sum_dm);
-    constraint3 = n*(n-1)*(10*n+1);
-    fprintf(fp, "p cnf %d %d\n", n * n + n * (n - 1) * (3 * n + 1), constraint1+constraint2+constraint3);
+    constraint2 = 4 * n * (sum_ne) / (sum_dm);
+    constraint3 = n * (n - 1) * (10 * n + 1+1);
+    fprintf(fp, "p cnf %d %d\n", n * n + n * (n - 1) * (3 * n + 1), constraint1 + constraint2 + constraint3);
 
     // 约束1
     for (i = 1; i <= n; i++)
@@ -73,23 +72,23 @@ int Generatecnf(void)
             //  行
             for (i = 0; i < n / 2 + 1; i++)
             {
-                fprintf(fp, "%d ", array[i] + 8 * k);
+                fprintf(fp, "%d ", array[i] + n * k);
             }
             fprintf(fp, "0\n");
             for (i = 0; i < n / 2 + 1; i++)
             {
-                fprintf(fp, "%d ", -(array[i] + 8 * k));
+                fprintf(fp, "%d ", -(array[i] + n * k));
             }
             fprintf(fp, "0\n");
 
             for (i = 0; i < n / 2 + 1; i++)
             {
-                fprintf(fp, "%d ", ((array[i] - 1) * 8 + 1) + k);
+                fprintf(fp, "%d ", ((array[i] - 1) * n + 1) + k);
             }
             fprintf(fp, "0\n");
             for (i = 0; i < n / 2 + 1; i++)
             {
-                fprintf(fp, "%d ", -(((array[i] - 1) * 8 + 1) + k));
+                fprintf(fp, "%d ", -(((array[i] - 1) * n + 1) + k));
             }
             fprintf(fp, "0\n");
         }
@@ -101,23 +100,23 @@ int Generatecnf(void)
                 //  行
                 for (i = 0; i < n / 2 + 1; i++)
                 {
-                    fprintf(fp, "%d ", array[i] + 8 * k);
+                    fprintf(fp, "%d ", array[i] + n * k);
                 }
                 fprintf(fp, "0\n");
                 for (i = 0; i < n / 2 + 1; i++)
                 {
-                    fprintf(fp, "%d ", -(array[i] + 8 * k));
+                    fprintf(fp, "%d ", -(array[i] + n * k));
                 }
                 fprintf(fp, "0\n");
 
                 for (i = 0; i < n / 2 + 1; i++)
                 {
-                    fprintf(fp, "%d ", ((array[i] - 1) * 8 + 1) + k);
+                    fprintf(fp, "%d ", ((array[i] - 1) * n + 1) + k);
                 }
                 fprintf(fp, "0\n");
                 for (i = 0; i < n / 2 + 1; i++)
                 {
-                    fprintf(fp, "%d ", -(((array[i] - 1) * 8 + 1) + k));
+                    fprintf(fp, "%d ", -(((array[i] - 1) * n + 1) + k));
                 }
                 fprintf(fp, "0\n");
             }
@@ -143,8 +142,7 @@ int Generatecnf(void)
                     array[change]++;
                 }
             }
-        }
-        while (re == 1);
+        } while (re == 1);
 
         if (base > change)
             base = change;
@@ -154,7 +152,7 @@ int Generatecnf(void)
     // 约束3
     int x = n * n + 1, y = n * n + 2, z = n * n + 3; // 三个辅助变元  * n 次  65 66 67，   68 69 70， ...
     int all;                                         // 最后把整个聚起来的辅助变元
-    all = n*n;
+    all = n * n;
 
     for (int a = 1; a <= (n - 1); a++)
     {
@@ -188,15 +186,15 @@ int Generatecnf(void)
             }
             all = z + 1;
             //  还有n+1个子句
-
+            fprintf(fp, "%d 0\n", all);
             for (i = n; i >= 1; i--)
             {
-                fprintf(fp, "%d %d 0\n", all - i, all);
+                fprintf(fp, "%d %d 0\n", all - 1 - (i - 1) * 3, all);
             }
 
             for (i = n; i >= 1; i--)
             {
-                fprintf(fp, "%d ", -(all - i));
+                fprintf(fp, "%d ", -(all - 1 - (i - 1) * 3));
             }
             fprintf(fp, "%d 0\n", -all);
 
@@ -228,23 +226,23 @@ int Generatecnf(void)
             }
             all = z + 1;
             //  还有n+1个子句
-
+            fprintf(fp, "%d 0\n", all);
             for (i = n; i >= 1; i--)
             {
-                fprintf(fp, "%d %d 0\n", all - i, all);
+                fprintf(fp, "%d %d 0\n", all - 1 - (i - 1) * 3, all);
             }
 
             for (i = n; i >= 1; i--)
             {
-                fprintf(fp, "%d ", -(all - i));
+                fprintf(fp, "%d ", -(all - 1 - (i - 1) * 3));
             }
             fprintf(fp, "%d 0\n", -all);
         }
     }
 
     fclose(fp);
-    char filename[81];
-    startDPLL(filename);
+    startDPLL("puzzle.cnf");
+    saveanswer("puzzle_answer.sol");
     printf("Successful!\n");
     displaysudoku(n);
     return 1;
@@ -253,25 +251,24 @@ int Generatecnf(void)
 int displaysudoku(int n)
 {
     FILE *fp = NULL;
-    if ((fp = fopen("sb", "r") )== NULL)
+    if ((fp = fopen("puzzle_answer.sol", "r")) == NULL)
     {
 
         exit(1);
     }
 
-
     int i = 0;
     int j = 0;
     int temp, display;
-    for(i = 0; i<n; i++)
+    for (i = 0; i < n; i++)
     {
-        for(j = 0; j<n; j++)
+        for (j = 0; j < n; j++)
         {
-            fscanf(fp,"%d %d\n",&temp,&display);
-            printf("|%d",display);
+            fscanf(fp, "%d %d\n", &temp, &display);
+            printf("|%d", display);
         }
         printf("|\n");
     }
-     fclose(fp);
-     return 1;
+    fclose(fp);
+    return 1;
 }

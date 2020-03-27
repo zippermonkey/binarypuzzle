@@ -1,3 +1,7 @@
 bin/**
 obj/**
 *.cnf
+.vscode/**
+*.exe
+hello*
+*.sol

@@ -6,6 +6,10 @@
 #include "head.h"
 int verify(Clause *root)
 {
+    if(root == NULL)
+    {
+        return -2;
+    }
     printf("Please input filename of answer: ");
     char filename[81];
     scanf("%s",filename);

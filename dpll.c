@@ -233,36 +233,30 @@ int sign(int x)
     return (x > 0) ? 1 : -1;
 }
 
-
-void startDPLL(char * filename)
+int startDPLL(char *filename)
 {
     clock_t start_time, end_time;
-    printf("input a cnf filename: ");
-    scanf("%s", filename);
+    // printf("input a cnf filename: ");
+    // scanf("%s", filename);
     Clause *root = readClauseSet(filename);
-    if(root == NULL)
+    if (root == NULL)
     {
-        return ;
+        // 出错
+        return -1;
     }
-
 
     start_time = clock();
     int sta = dpll(root);
     end_time = clock();
-    if (sta == 1) // SAT
+    printf("\n  %ldms\n", end_time - start_time);
+    if (sta == 1)
     {
-        printf("SAT\n");
-        int i = 1;
-        for (i = 1; i <= variableNumber; i++)
-            printf("%d   %d\n", i, valuation[i]);
-        // write file
-        printf("input a filename to save answer: ");
-        scanf("%s", filename);
-        saveanswer(filename);
+        // SAT
+        return 1;
     }
     else
     {
-        printf("UNSAT\n");
+        // UNSAT
+        return 0;
     }
-    printf("\n  %ldms\n", end_time - start_time);
 }
